@@ -7,5 +7,7 @@
 <!-- <a routerLink="">Login</a>
 <br>
 <a routerLink="admin">Admin</a> -->
+<mat-toolbar>{{ email$ | async}}</mat-toolbar>
+<mat-progress-bar *ngIf="loading$ | async" mode="indeterminate"></mat-progress-bar>
 <router-outlet></router-outlet>
 <!-- <footer>Footer</footer> -->
