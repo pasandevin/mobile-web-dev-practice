@@ -10,7 +10,12 @@ import { AppState } from './state/app/app.state';
 
 @Component({
   standalone: true,
-  imports: [RouterModule, CommonModule, MatProgressBarModule, MatToolbarModule],
+  imports: [
+    RouterModule, 
+    CommonModule,
+     MatProgressBarModule,
+      MatToolbarModule
+    ],
   selector: 'mobile-web-dev-practice-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
@@ -25,7 +30,7 @@ export class AppComponent {
   }
 
   // constructor(protected appService: AppService) {}
-  email$:Observable<string>
+  email$:Observable<string | undefined | null>
   loading$:Observable<boolean>
 
   constructor(private store:Store) {

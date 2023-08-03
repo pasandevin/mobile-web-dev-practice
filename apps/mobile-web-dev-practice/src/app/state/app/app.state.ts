@@ -1,16 +1,21 @@
 import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { ShowLoading } from "./app.actions";
+import { ShowLoading, UpdateUser } from "./app.actions";
+import { User } from "@angular/fire/auth";
+import { of } from "rxjs";
 
 export interface AppStateModel {
     loading: boolean;
-    email: string;
-    token?: string;
+    // email: string;
+    // token?: string;
+    user?: {
+        email: string;
+    }
 }
 
 @State<AppStateModel>({
     name: 'app',
-    defaults: { loading: false, email: 'pasan@gmail.com' },
+    defaults: { loading: false},
 })
 
 @Injectable({ providedIn: 'root'})
@@ -20,7 +25,7 @@ export class AppState{
     }
 
     @Selector() static email(state: AppStateModel) {
-        return state.email;
+        return state.user?.email;
     }
 
     @Action(ShowLoading)
@@ -29,5 +34,18 @@ export class AppState{
         {loading}: ShowLoading
     ) {
         return patchState({ loading });
+    }
+
+    @Action(UpdateUser)
+    UpdateUser(
+        {patchState}: StateContext<AppStateModel>,
+        {user}: UpdateUser
+    ) {
+        if(user.email) {
+            return patchState({ user: {email: user.email} });
+        } else {
+            return of();
+        }
+        
     }
 }
