@@ -12,8 +12,9 @@ import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire/compat';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { BaseUrlInterceptorService } from './services/_interceptors/base-url-interceptor/base-url-interceptor/base-url-interceptor.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -44,6 +45,11 @@ export const appConfig: ApplicationConfig = {
         })
       )
     ),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BaseUrlInterceptorService,
+      multi: true,
+    },
     importProvidersFrom(provideFirestore(() => getFirestore())),
     importProvidersFrom(HttpClientModule),
     importProvidersFrom(MatMomentDateModule),

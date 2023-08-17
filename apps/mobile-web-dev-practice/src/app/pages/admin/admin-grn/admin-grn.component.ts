@@ -36,7 +36,7 @@ interface GRN {
     ReactiveFormsModule, 
     MatDatepickerModule, 
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
     ],
   templateUrl: './admin-grn.component.html',
   styleUrls: ['./admin-grn.component.scss']
