@@ -14,7 +14,7 @@
         "outputPath": "dist/apps/mobile-web-api",
         "main": "apps/mobile-web-api/src/main.ts",
         "tsConfig": "apps/mobile-web-api/tsconfig.app.json",
-        "assets": ["apps/mobile-web-api/src/assets"],
+        "assets": ["apps/mobile-web-api/src/environments"],
         "isolatedConfig": true,
         "webpackConfig": "apps/mobile-web-api/webpack.config.js"
       },
