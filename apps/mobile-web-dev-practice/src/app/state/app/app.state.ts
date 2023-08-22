@@ -1,11 +1,13 @@
 import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { ShowLoading, UpdateUser } from "./app.actions";
+import { Login, ShowLoading, UpdateUser } from "./app.actions";
 import { User } from "@angular/fire/auth";
-import { of } from "rxjs";
+import { of, tap } from "rxjs";
+import { AuthService } from "../../services/auth/auth.service";
 
 export interface AppStateModel {
     loading: boolean;
+    access_token?: string;
     // email: string;
     // token?: string;
     user?: {
@@ -27,6 +29,8 @@ export class AppState{
     @Selector() static email(state: AppStateModel) {
         return state.user?.email;
     }
+    constructor(private authService: AuthService) {}
+
 
     @Action(ShowLoading)
     showLoading(
@@ -48,4 +52,18 @@ export class AppState{
         }
         
     }
+
+    @Action(Login)
+    login(
+      { patchState }: StateContext<AppStateModel>,
+      { username, password }: Login
+    ) {
+      return this.authService.signIn(username, password).pipe(
+        tap((response) => {
+          const { access_token } = response;
+          patchState({ access_token });
+        })
+      );
+    }
 }
+

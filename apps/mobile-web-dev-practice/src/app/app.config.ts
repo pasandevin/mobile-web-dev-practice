@@ -15,6 +15,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BaseUrlInterceptorService } from './services/_interceptors/base-url-interceptor/base-url-interceptor/base-url-interceptor.service';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,6 +34,7 @@ export const appConfig: ApplicationConfig = {
         appId: "1:178370798269:web:d385dcdf4176a715210dd4"
       }),
     ),
+    importProvidersFrom(NgxsStoragePluginModule.forRoot()),
     importProvidersFrom(
       provideFirebaseApp(() =>
         initializeApp({
